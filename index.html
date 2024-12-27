@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Electrónica</title>
+    <script src="scripts.js" defer></script>
+    
+</head>
+<body>
+    <header>
+        <h1>Tienda Electrónica</h1>
+        <nav>
+            <ul>
+                <li><a href="formulario_productos.html">Agregar Productos</a></li>
+                <li><a href="formulario_clientes.html">Agregar Clientes</a></li>
+                <li><a href="compras.html">Ver Compras</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <label for="clientePago">Selecciona un Cliente:</label>
+    <select id="clientePago" required></select>
+
+    <main>
+        <section id="busqueda">
+            <h2>Buscar Productos</h2>
+            <form id="formBusqueda">
+                <input type="text" id="buscar" placeholder="Buscar producto...">
+                <select id="filtro">
+                    <option value="">Filtrar por</option>
+                    <option value="precio_asc">Precio: Menor a Mayor</option>
+                    <option value="precio_desc">Precio: Mayor a Menor</option>
+                    <option value="stock">Disponibilidad</option>
+                </select>
+            </form>
+        </section>
+
+        <section id="productos">
+            <h2>Productos</h2>
+            <div id="listaProductos"></div>
+        </section>
+
+        <section id="carrito">
+            <h2>Carrito de Compras</h2>
+            <div id="listaCarrito">
+                <p>Tu carrito está vacío.</p>
+            </div>
+            <button id="finalizarCompra">Finalizar Compra</button>
+
+            <!-- Modal de Pago -->
+            <div id="modalPago" class="modal oculto">
+                <div class="modal-contenido">
+                    <h3>Detalles de Pago</h3>
+                    <form id="formPago">
+                        <label for="nombrePago">Nombre:</label>
+                        <input type="text" id="nombrePago" required>
+
+                        <label for="tarjetaPago">Número de Tarjeta:</label>
+                        <input type="text" id="tarjetaPago" required pattern="\d{16}" placeholder="16 dígitos">
+
+                        <label for="fechaPago">Fecha de Expiración:</label>
+                        <input type="month" id="fechaPago" required>
+
+                        <label for="cvvPago">CVV:</label>
+                        <input type="text" id="cvvPago" required pattern="\d{3}" placeholder="3 dígitos">
+
+                        <button type="submit">Pagar</button>
+                        <button type="button" id="cancelarPago">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="promociones">
+            <h2>Promociones y Descuentos</h2>
+            <ul id="listaPromociones">
+                <li>10% de descuento en compras mayores a $1000.</li>
+                <li>Envío gratis en tu primera compra.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tienda Electrónica. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

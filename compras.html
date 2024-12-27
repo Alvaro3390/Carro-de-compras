@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Compras por Cliente</title>
+    <script>
+        async function cargarClientes() {
+            const response = await fetch('backend.php?action=getClientes');
+            const clientes = await response.json();
+            const select = document.getElementById('clienteSeleccionado');
+
+            clientes.forEach(cliente => {
+                const option = document.createElement('option');
+                option.value = cliente.id_cliente;
+                option.textContent = cliente.nombre;
+                select.appendChild(option);
+            });
+        }
+
+        async function mostrarCompras() {
+            const idCliente = document.getElementById('clienteSeleccionado').value;
+            const response = await fetch(`backend.php?action=getCompras&id_cliente=${idCliente}`);
+            const compras = await response.json();
+            const contenedor = document.getElementById('comprasCliente');
+            contenedor.innerHTML = '';
+
+            if (compras.length === 0) {
+                contenedor.innerHTML = '<p>No hay compras registradas para este cliente.</p>';
+                return;
+            }
+
+            compras.forEach(compra => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <p>Producto: ${compra.nombre_producto}</p>
+                    <p>Cantidad: ${compra.cantidad}</p>
+                    <p>Total: $${compra.total}</p>
+                    <hr>
+                `;
+                contenedor.appendChild(div);
+            });
+        }
+
+        window.onload = () => {
+            cargarClientes();
+        };
+    </script>
+</head>
+<body>
+    <h1>Compras por Cliente</h1>
+    <label for="clienteSeleccionado">Selecciona un Cliente:</label>
+    <select id="clienteSeleccionado" onchange="mostrarCompras()"></select>
+
+    <div id="comprasCliente">
+        <p>Selecciona un cliente para ver sus compras.</p>
+    </div>
+</body>
+</html>
